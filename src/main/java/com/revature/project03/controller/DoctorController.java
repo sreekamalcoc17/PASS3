@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.project03.entities.Doctor;
 import com.revature.project03.model.Login;
 import com.revature.project03.service.DoctorService;
+import com.revature.project03.service.GeneratePasswordService;
 @RestController
 @RequestMapping("/doctorController")
 @CrossOrigin(origins = "*")
 public class DoctorController {
 	@Autowired
     private DoctorService service;
+	private GeneratePasswordService passGen;
 
     @PostMapping("/addDoctor")
     public Doctor addDoctor(@RequestBody Doctor doctor) {
+    	String newPass = passGen.generateRandomPassword();
+    	doctor.setPassword(newPass);
         return service.saveDoctor(doctor);
     }
 

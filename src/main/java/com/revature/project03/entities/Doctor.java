@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -15,6 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -46,6 +51,13 @@ public class Doctor {
 	@Embedded
 	private DoctorAvailability doctorAvailability;
 	private String password;
+	
+	
+	 @ManyToMany(mappedBy = "doctors")
+	    private Set<Patient> patients = new HashSet<>();
+	 
+	 @ManyToMany(mappedBy = "doctors")
+	    private Set<Family> families = new HashSet<>();
 	
 	
 }
