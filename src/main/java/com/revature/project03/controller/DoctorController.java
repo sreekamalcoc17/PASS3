@@ -1,6 +1,13 @@
 package com.revature.project03.controller;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.startup.ClassLoaderFactory;
+import org.apache.logging.log4j.Logger;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,18 +23,58 @@ import com.revature.project03.entities.Doctor;
 import com.revature.project03.model.Login;
 import com.revature.project03.service.DoctorService;
 import com.revature.project03.service.GeneratePasswordService;
+
+import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/doctorController")
 @CrossOrigin(origins = "*")
+@Slf4j
 public class DoctorController {
 	@Autowired
     private DoctorService service;
-	private GeneratePasswordService passGen;
+	//private GeneratePasswordService passGen;
+	
+	
+	public String generateRandomPassword() {
+	    PasswordGenerator gen = new PasswordGenerator();
+	    org.passay.CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+	    CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+	    lowerCaseRule.setNumberOfCharacters(2);
+
+	    CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+	    CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+	    upperCaseRule.setNumberOfCharacters(2);
+
+	    CharacterData digitChars = EnglishCharacterData.Digit;
+	    CharacterRule digitRule = new CharacterRule(digitChars);
+	    digitRule.setNumberOfCharacters(2);
+
+	    CharacterData specialChars = new CharacterData() {
+	        public String getErrorCode() {
+	            return null;
+	        }
+
+	        public String getCharacters() {
+	            return "!@#$%^&*()_+";
+	        }
+	    };
+	    CharacterRule splCharRule = new CharacterRule(specialChars);
+	    splCharRule.setNumberOfCharacters(2);
+	    List l1 = new ArrayList<>();
+	    l1.add(splCharRule);
+	    l1.add(lowerCaseRule);
+	    l1.add(upperCaseRule);
+	    l1.add(digitRule);
+
+	    String password = gen.generatePassword(10, l1);
+	    return password;
+	}
 
     @PostMapping("/addDoctor")
     public Doctor addDoctor(@RequestBody Doctor doctor) {
-    	String newPass = passGen.generateRandomPassword();
+    	String newPass = generateRandomPassword();
     	doctor.setPassword(newPass);
+    	log.trace("New Doctor Added with email: "+ doctor.getEmail());
         return service.saveDoctor(doctor);
     }
 
@@ -62,6 +109,7 @@ public class DoctorController {
     
     @PostMapping("/loginDoctor")
     public Doctor login(@RequestBody Login login) {
+    	log.trace("Doctor login called");
     	System.out.println(login);
     	Doctor curr_Doctor = service.getDoctorByEmail(login.getEmail());
     	System.out.println(curr_Doctor);
@@ -71,6 +119,7 @@ public class DoctorController {
     	System.out.println(userPass);
     	if(enteredPass.equals(userPass)) {
     		System.out.println("if loop entered");
+    		log.trace(login.getEmail()+" - logged in as a doctor");
     		return service.getDoctorByEmail(curr_Doctor.getEmail());
     	}
     	else {
