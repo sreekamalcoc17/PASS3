@@ -33,10 +33,10 @@
     </appender>
     
     LOG everything at INFO level
-    <!-- <root level="info">
+    <root level="info">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
-    </root> -->
+    </root>
 
     LOG "com.baeldung*" at TRACE level
     <logger name="com.revature.project03.controller" level="trace" additivity="false">
