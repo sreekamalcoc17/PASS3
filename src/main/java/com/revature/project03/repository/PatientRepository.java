@@ -7,5 +7,5 @@ import com.revature.project03.entities.Patient;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
-
+	Patient findByEmail(String email);
 }

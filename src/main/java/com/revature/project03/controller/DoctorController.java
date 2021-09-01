@@ -139,25 +139,6 @@ public class DoctorController {
     	return leaveService.findAllLeavesOfDoctorById(id);
     }
     
-    @PostMapping("/loginDoctor")
-    public Doctor login(@RequestBody Login login) {
-    	log.trace("Doctor login called");
-    	System.out.println(login);
-    	Doctor curr_Doctor = service.getDoctorByEmail(login.getEmail());
-    	System.out.println(curr_Doctor);
-    	String enteredPass = login.getPassword();
-    	System.out.println(enteredPass);
-    	String userPass = curr_Doctor.getPassword();
-    	System.out.println(userPass);
-    	if(enteredPass.equals(userPass)) {
-    		System.out.println("if loop entered");
-    		log.trace(login.getEmail()+" - logged in as a doctor");
-    		return service.getDoctorByEmail(curr_Doctor.getEmail());
-    	}
-    	else {
-    		return null;
-    	}
-    	
-    }
+   
 
 }

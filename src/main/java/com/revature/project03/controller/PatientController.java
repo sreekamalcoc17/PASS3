@@ -105,7 +105,7 @@ public class PatientController {
         
         patient.setUserName(patientDetails.getUserName());
         patient.setPassword(patientDetails.getPassword());
-        patient.setEmail_id(patientDetails.getEmail_id());
+        patient.setEmail(patientDetails.getEmail());
         patient.setLastName(patientDetails.getLastName());
         patient.setFirstName(patientDetails.getFirstName());
         patient.setAge(patientDetails.getAge());
@@ -130,3 +130,4 @@ public class PatientController {
     
    
 }
+

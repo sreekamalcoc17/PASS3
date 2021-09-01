@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +40,8 @@ public class Patient {
 	private String gender;
 	private String mobileNo;
 	private String address;
-	private String email_id;
+	@Column(name = "email_id")
+	private String email;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "patient")
 	private List<Family> members=new ArrayList<>();
