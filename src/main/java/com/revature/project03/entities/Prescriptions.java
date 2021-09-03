@@ -25,17 +25,19 @@ public class Prescriptions {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int presId;
-	/*@ManyToOne
-	@JoinColumn(name = "doctorId", referencedColumnName = "doctorId")
-	private int doctorId;
-	@ManyToOne
-	@JoinColumn(name = "patientId", referencedColumnName = "patientId")
-	private int patientId;
-	private String description;
-	private String medicines;*/
-	/*@ManyToOne
-	@JoinColumn(name = "doctorFees", referencedColumnName = "doctorFees")
-	private int doctorFees;*/
 	
-
+//	@ManyToOne
+//	@JoinColumn(name = "doctorId", referencedColumnName = "doctorId")
+	private int doctorId;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "patientId", referencedColumnName = "patientId")
+	private int patientId;
+	
+	private String description;
+	private String medicines;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "doctorFees", referencedColumnName = "doctorFees")
+	private int doctorFees;
 }

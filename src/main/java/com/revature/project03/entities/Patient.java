@@ -53,6 +53,9 @@ public class Patient {
         inverseJoinColumns = { @JoinColumn(name = "doctorId") }
     )
     Set<Doctor> doctors = new HashSet<>();
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "patient")
+	private List<Appointment> appointment=new ArrayList<>();
 
 
 	

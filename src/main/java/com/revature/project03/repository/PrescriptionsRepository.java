@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.revature.project03.entities.Prescriptions;
 
 public interface PrescriptionsRepository extends JpaRepository<Prescriptions,Integer>{
-	//Prescriptions findByDoctorId(int doctorId);
-	//List<Prescriptions> findAllByPatientId(int patientId);
+	Prescriptions findByPresId(int id);
+	List<Prescriptions> findAllByDoctorId(int doctorId);
+	List<Prescriptions> findAllByPatientId(int patientId);
 }
